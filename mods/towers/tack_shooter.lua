@@ -86,7 +86,7 @@ towers.FireFlames = function(pos, speed)
 	tack6:set_velocity({x=0-speed, y=0, z=speed})
 	tack7:set_velocity({x=0-speed, y=0, z=0-speed})
 
-	minetest.log("Tacks flying!")
+	minetest.log("Flames flying!")
 end
 
 minetest.register_chatcommand("tacks", {

@@ -99,7 +99,7 @@ minetest.register_craftitem("towers:firedart", {
 		local playervector = user:get_look_dir()
 		local pos = user:get_pos()
 		pos.y = pos.y + 0.8
-		towers.FireDart(pos, speed, user:get_look_dir())
+		towers.FireFireDart(pos, speed, user:get_look_dir())
 	end
 })
 
