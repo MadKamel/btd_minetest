@@ -18,6 +18,26 @@ minetest.register_entity("towers:shot_tack", {
 	end,
 })
 
+minetest.register_entity("towers:shot_flame", {
+	initial_properties = {
+		physical = true,
+		collide_with_objects = false,
+		visual = "sprite",
+		visual_size = {x = 1, y = 1, z = 1},
+		textures = {"flame.png"},
+		show_on_minimap = false,
+		tack_range = 10
+	},
+	projectile = true,
+	on_step = function(self, dtime, moveresult)
+		if moveresult.collides == true then
+			self.object:remove()
+		end
+		--self.object:remove()
+		--minetest.log(dump(moveresult))
+	end,
+})
+
 TimeOut = function(seconds)
 	local start = os.time()
 	repeat until os.time() > start + seconds

@@ -83,13 +83,13 @@ CheckForProjectiles = function(self)
 		return true
 	else
 		local armoured = self.initial_properties.is_armoured or false
-		if utils.has_projectile(obj_nearby, "towers:shot_flame") then
+		if utils.has_projectiles(obj_nearby, "towers:shot_flame") then
 			--minetest.log(dump(obj_nearby))
 			local popper = utils.get_projectile(obj_nearby, "towers:shot_flame")
 			popper.object:remove()
 			PopMe(self)
 			return false
-		if utils.has_projectile(obj_nearby, "towers:shot_firedart") then
+		elseif utils.has_projectiles(obj_nearby, "towers:shot_firedart") then
 			--minetest.log(dump(obj_nearby))
 			local popper = utils.get_projectile(obj_nearby, "towers:shot_firedart")
 			popper.object:remove()
