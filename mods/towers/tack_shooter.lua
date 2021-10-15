@@ -47,6 +47,28 @@ towers.FireTacks = function(pos, speed)
 	minetest.log("Tacks flying!")
 end
 
+towers.FireFlames = function(pos, speed)
+	tack0 = minetest.add_entity(pos, "towers:shot_flame")
+	tack1 = minetest.add_entity(pos, "towers:shot_flame")
+	tack2 = minetest.add_entity(pos, "towers:shot_flame")
+	tack3 = minetest.add_entity(pos, "towers:shot_flame")
+	tack4 = minetest.add_entity(pos, "towers:shot_flame")
+	tack5 = minetest.add_entity(pos, "towers:shot_flame")
+	tack6 = minetest.add_entity(pos, "towers:shot_flame")
+	tack7 = minetest.add_entity(pos, "towers:shot_flame")
+
+	tack0:set_velocity({x=0, y=0, z=speed})
+	tack1:set_velocity({x=0, y=0, z=0-speed})
+	tack2:set_velocity({x=speed, y=0, z=0})
+	tack3:set_velocity({x=0-speed, y=0, z=0})
+	tack4:set_velocity({x=speed, y=0, z=speed})
+	tack5:set_velocity({x=speed, y=0, z=0-speed})
+	tack6:set_velocity({x=0-speed, y=0, z=speed})
+	tack7:set_velocity({x=0-speed, y=0, z=0-speed})
+
+	minetest.log("Tacks flying!")
+end
+
 minetest.register_chatcommand("tacks", {
 	params = "",
 	description = "Creates a ring of tacks that move outward from the player.",
@@ -80,5 +102,20 @@ minetest.register_abm({
 	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
 		towers.FireTacks(pos, 15)
+	end
+})
+
+minetest.register_node("towers:flame_shooter", {
+	description = "Flame Shooter",
+	tiles = {"tshooter_top.png", "tshooter_bottom.png", "tshooter_side.png"},
+	groups = {oddly_breakable_by_hand=3}
+})
+
+minetest.register_abm({
+	nodenames = {"towers:flame_shooter"},
+	interval = 1,
+	chance = 1,
+	action = function(pos, node, active_object_count, active_object_count_wider)
+		towers.FireFlames(pos, 15)
 	end
 })
