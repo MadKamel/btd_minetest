@@ -17,7 +17,8 @@ bloons.register_bloon = function(type, defs)
 			textures = {type.."_bloon.png"},
 			show_on_minimap = true,
 			type = defs.type,
-			speed = defs.speed
+			speed = defs.speed,
+			is_armoured = defs.armoured
 		},
 		on_punch = function(self)
 			PopMe(self)
@@ -68,6 +69,9 @@ PopMe = function(self)
 		minetest.add_entity(self.object:get_pos(), "bloons:black")
 		minetest.add_entity(self.object:get_pos(), "bloons:white")
 		minetest.add_entity(self.object:get_pos(), "bloons:white")
+	elseif self.initial_properties.type == 8 then
+		minetest.add_entity(self.object:get_pos(), "bloons:black")
+		minetest.add_entity(self.object:get_pos(), "bloons:black")
 	end
 	self.object:remove()
 end
@@ -78,18 +82,33 @@ CheckForProjectiles = function(self)
 		minetest.log("BLOON DOES NOT EXIST!")
 		return true
 	else
-		if utils.has_projectiles(obj_nearby, "towers:shot_tack") then
+		local armoured = self.initial_properties.is_armoured or false
+		if utils.has_projectile(obj_nearby, "towers:shot_flame") then
 			--minetest.log(dump(obj_nearby))
-			local popper = utils.get_projectile(obj_nearby, "towers:shot_tack")
+			local popper = utils.get_projectile(obj_nearby, "towers:shot_flame")
 			popper.object:remove()
 			PopMe(self)
 			return false
-		elseif utils.has_projectiles(obj_nearby, "towers:shot_dart") then
+		if utils.has_projectile(obj_nearby, "towers:shot_firedart") then
 			--minetest.log(dump(obj_nearby))
-			local popper = utils.get_projectile(obj_nearby, "towers:shot_dart")
+			local popper = utils.get_projectile(obj_nearby, "towers:shot_firedart")
 			popper.object:remove()
 			PopMe(self)
 			return false
+		elseif not armoured then
+			if utils.has_projectiles(obj_nearby, "towers:shot_tack") then
+				--minetest.log(dump(obj_nearby))
+				local popper = utils.get_projectile(obj_nearby, "towers:shot_tack")
+				popper.object:remove()
+				PopMe(self)
+				return false
+			elseif utils.has_projectiles(obj_nearby, "towers:shot_dart") then
+				--minetest.log(dump(obj_nearby))
+				local popper = utils.get_projectile(obj_nearby, "towers:shot_dart")
+				popper.object:remove()
+				PopMe(self)
+				return false
+			end
 		end
 	end
 	return true

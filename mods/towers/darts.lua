@@ -18,11 +18,39 @@ minetest.register_entity("towers:shot_dart", {
 	end,
 })
 
+minetest.register_entity("towers:shot_firedart", {
+	initial_properties = {
+		physical = true,
+		collide_with_objects = false,
+		visual = "sprite",
+		visual_size = {x = 1, y = 1, z = 1},
+		textures = {"firedart.png"},
+		show_on_minimap = false,
+		tack_range = 10
+	},
+	projectile = true,
+	on_step = function(self, dtime, moveresult)
+		if moveresult.collides == true then
+			self.object:remove()
+		end
+		--self.object:remove()
+		--minetest.log(dump(moveresult))
+	end,
+})
+
 towers.FireDart = function(pos, speed, dir)
 	dart = minetest.add_entity(pos, "towers:shot_dart")
 	local dir_real = dir
 	dir_real.y = 0
 	minetest.log("Dart fired!")
+	dart:set_velocity(vector.multiply(vector.new(dir_real), vector.new({x=speed,y=0,z=speed})))
+end
+
+towers.FireFireDart = function(pos, speed, dir)
+	dart = minetest.add_entity(pos, "towers:shot_firedart")
+	local dir_real = dir
+	dir_real.y = 0
+	minetest.log("Firedart fired!")
 	dart:set_velocity(vector.multiply(vector.new(dir_real), vector.new({x=speed,y=0,z=speed})))
 end
 
@@ -53,6 +81,19 @@ minetest.register_craftitem("towers:dart", {
 	description = "Throwable Dart",
 	inventory_image = "dart.png",
 	wield_image = "dart.png",
+	on_use = function(itemstack, user, pointed_thing)
+		local speed = 30
+		local playervector = user:get_look_dir()
+		local pos = user:get_pos()
+		pos.y = pos.y + 0.8
+		towers.FireDart(pos, speed, user:get_look_dir())
+	end
+})
+
+minetest.register_craftitem("towers:firedart", {
+	description = "Throwable Firedart",
+	inventory_image = "firedart.png",
+	wield_image = "firedart.png",
 	on_use = function(itemstack, user, pointed_thing)
 		local speed = 30
 		local playervector = user:get_look_dir()

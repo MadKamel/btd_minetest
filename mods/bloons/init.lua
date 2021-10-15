@@ -6,15 +6,16 @@ dofile(minetest.get_modpath("bloons").."/bloons.lua")
 
 -- Here we register bloons.
 local modifier = 1
-bloons.register_bloon("red", {type=0, speed=0.5*modifier, size=0.9})
-bloons.register_bloon("blue", {type=1, speed=1*modifier, size=1.0})
-bloons.register_bloon("green", {type=2, speed=1.5*modifier, size=1.1})
-bloons.register_bloon("yellow", {type=3, speed=2*modifier, size=1.2})
-bloons.register_bloon("pink", {type=4, speed=2.5*modifier, size=1.4})
-bloons.register_bloon("black", {type=5, speed=1.5*modifier, size=0.5})
-bloons.register_bloon("white", {type=5, speed=1.5*modifier, size=0.5})
-bloons.register_bloon("zebra", {type=6, speed=1.5*modifier, size=1.2})
-bloons.register_bloon("rainbow", {type=7, speed=2*modifier, size=1.4})
+bloons.register_bloon("red", {type=0, speed=0.5*modifier, size=0.9, armoured=false})
+bloons.register_bloon("blue", {type=1, speed=1*modifier, size=1.0, armoured=false})
+bloons.register_bloon("green", {type=2, speed=1.5*modifier, size=1.1, armoured=false})
+bloons.register_bloon("yellow", {type=3, speed=2*modifier, size=1.2, armoured=false})
+bloons.register_bloon("pink", {type=4, speed=2.5*modifier, size=1.4, armoured=false})
+bloons.register_bloon("black", {type=5, speed=1.5*modifier, size=0.5, armoured=false})
+bloons.register_bloon("white", {type=5, speed=1.5*modifier, size=0.5, armoured=false})
+bloons.register_bloon("zebra", {type=6, speed=1.5*modifier, size=1.2, armoured=false})
+bloons.register_bloon("rainbow", {type=7, speed=2*modifier, size=1.4, armoured=false})
+bloons.register_bloon("lead", {type=0, speed=0.5*modifier, size=1.0, armoured=true})
 
 minetest.register_chatcommand("bloon", {
 	params = "",
@@ -48,6 +49,6 @@ minetest.register_abm({
 	interval = 6,
 	chance = 1,
 	action = function(pos, yada, yada2, dunno)
-		bloons.add_bloon(pos, "rainbow")
+		bloons.add_bloon(pos, "lead")
 	end
 })
