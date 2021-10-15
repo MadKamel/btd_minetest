@@ -1,3 +1,12 @@
+--todo:   Make a bloon that regrows, depending on a parameter passed to it by the last layer popped.
+--      For instance, a lead bloon that leaves behind two black bloons would be passing a parameter {"lead"}
+--      or some similar bloon identifier, then those black bloons would themselves pass a parameter {"lead", "black"}
+--      to the next generation, the two pink bloons that are inside. Of course, these bloons would be
+--      called something more like "regen_lead" instead of just "lead", so that adjustment would be
+--      useful. Maybe instead of using the already-made bloons.register_bloon function for making regens,
+--      I could make a bloons.register_regen_bloon() function for regens specifically. Of course, they would
+--      also need their own PopMe() function... maybe PopMeRegen()?
+
 bloons.register_bloon = function(type, defs)
 	minetest.register_entity("bloons:"..type, {
 		initial_properties = {

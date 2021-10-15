@@ -4,7 +4,7 @@ minetest.register_node("towers:spikes", {
 	walkable = false,
 	description = "Road Spikes",
 	tiles = {"spikes.png"},
-	groups = {oddly_breakable_by_hand=3},
+	groups = {spikes=1, oddly_breakable_by_hand=3},
 })
 
 minetest.register_node("towers:spikes_4", {
@@ -13,7 +13,7 @@ minetest.register_node("towers:spikes_4", {
 	walkable = false,
 	description = "Road Spikes (4 left)",
 	tiles = {"spikes_4.png"},
-	groups = {oddly_breakable_by_hand=3},
+	groups = {spikes=1, oddly_breakable_by_hand=3},
 })
 
 minetest.register_node("towers:spikes_3", {
@@ -22,7 +22,7 @@ minetest.register_node("towers:spikes_3", {
 	walkable = false,
 	description = "Road Spikes (3 left)",
 	tiles = {"spikes_3.png"},
-	groups = {oddly_breakable_by_hand=3},
+	groups = {spikes=1, oddly_breakable_by_hand=3},
 })
 
 minetest.register_node("towers:spikes_2", {
@@ -31,7 +31,7 @@ minetest.register_node("towers:spikes_2", {
 	walkable = false,
 	description = "Road Spikes (2 left)",
 	tiles = {"spikes_2.png"},
-	groups = {oddly_breakable_by_hand=3},
+	groups = {spikes=1, oddly_breakable_by_hand=3},
 })
 
 minetest.register_node("towers:spikes_1", {
@@ -40,7 +40,7 @@ minetest.register_node("towers:spikes_1", {
 	walkable = false,
 	description = "Road Spike (1 left)",
 	tiles = {"spikes_1.png"},
-	groups = {oddly_breakable_by_hand=3},
+	groups = {spikes=1, oddly_breakable_by_hand=3},
 })
 
 function towers.RemoveSpike(pos)
