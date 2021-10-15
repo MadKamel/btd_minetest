@@ -8,7 +8,8 @@ bloons.register_bloon = function(type, defs)
 			textures = {type.."_bloon.png"},
 			show_on_minimap = true,
 			type = defs.type,
-			speed = defs.speed
+			speed = defs.speed,
+			is_armoured = defs.armoured
 		},
 		on_punch = function(self)
 			PopMe(self)
@@ -38,8 +39,14 @@ end
 
 
 PopMe = function(self)
+	local armoured = self.initial_properties.is_armoured or false
 	minetest.log("Popped bloon!")
-	minetest.sound_play({name="bloon_pop"}, {pos=self.object:get_pos()})
+	if armoured then
+		minetest.log("Bloon is armoured, aborting pop...")
+		return
+	else
+		minetest.sound_play({name="bloon_pop"}, {pos=self.object:get_pos()})
+	end
 	if self.initial_properties.type == 1 then
 		minetest.add_entity(self.object:get_pos(), "bloons:red")
 	elseif self.initial_properties.type == 2 then
@@ -59,8 +66,13 @@ PopMe = function(self)
 		minetest.add_entity(self.object:get_pos(), "bloons:black")
 		minetest.add_entity(self.object:get_pos(), "bloons:white")
 		minetest.add_entity(self.object:get_pos(), "bloons:white")
+	elseif self.initial_properties.type == 8 then
+		minetest.add_entity(self.object:get_pos(), "bloons:black")
+		minetest.add_entity(self.object:get_pos(), "bloons:black")
 	end
-	self.object:remove()
+	if armoured then
+		self.object:remove()
+	end
 end
 
 CheckForProjectiles = function(self)
