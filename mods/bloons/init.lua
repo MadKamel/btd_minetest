@@ -16,6 +16,7 @@ bloons.register_bloon("white", {type=5, speed=1.5*modifier, size=0.5, armoured=f
 bloons.register_bloon("zebra", {type=6, speed=1.5*modifier, size=1.2, armoured=false})
 bloons.register_bloon("rainbow", {type=7, speed=2*modifier, size=1.4, armoured=false})
 bloons.register_bloon("lead", {type=8, speed=0.5*modifier, size=1.0, armoured=true})
+bloons.register_moab("ceramic", {type=1, speed=1.75*modifier, size=1.0, armoured=false, health=10})
 
 minetest.register_chatcommand("bloon", {
 	params = "",
