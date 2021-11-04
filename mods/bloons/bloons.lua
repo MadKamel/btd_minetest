@@ -60,14 +60,15 @@ bloons.register_moab = function(type, defs) -- Taken straight from the above fun
 			return minetest.serialize(self.data)
 		end,
 		on_step = function(self, dtime, moveresult)
+			self.object:remove()
 			--if CheckForSpikes(self) then --Old Bloon Code
 			--	MoveUp(self)
 			--end
-			if MOABCheckForSpikes(self) then
-				if MOABCheckForProjectiles(self) then
-					NB_SetVelByHeading(self, NB_CheckHeading(self), self.initial_properties.speed)
-				end
-			end
+			--if MOABCheckForSpikes(self) then
+			--	if MOABCheckForProjectiles(self) then
+			--		NB_SetVelByHeading(self, NB_CheckHeading(self), self.initial_properties.speed)
+			--	end
+			--end
 		end
 	})	
 end
@@ -121,7 +122,9 @@ PopMOAB = function(self) --Experimental script.
 	else
 		if self.initial_properties.type == 1 then
 			minetest.add_entity(self.object:get_pos(), "bloons:red")
+		end
 		self.object:remove()
+	end
 end
 
 MOABCheckForProjectiles = function(self)
@@ -255,21 +258,32 @@ CheckForSpikes = function(self)
 	local pos = self.object:get_pos()
 	local pos_down = vector.subtract(pos, vector.new(0, 1, 0))
 	--minetest.log(dump(minetest.get_node(pos_down)))
+	local armoured = self.initial_properties.is_armoured or false
 	if minetest.get_node(pos_down).name == "towers:spikes" then
 		towers.RemoveSpike(pos_down)
-		PopMe(self)
+		if not armoured then
+			PopMe(self)
+		end
 	elseif minetest.get_node(pos_down).name == "towers:spikes_4" then
 		towers.RemoveSpike(pos_down)
-		PopMe(self)
+		if not armoured then
+			PopMe(self)
+		end
 	elseif minetest.get_node(pos_down).name == "towers:spikes_3" then
 		towers.RemoveSpike(pos_down)
-		PopMe(self)
+		if not armoured then
+			PopMe(self)
+		end
 	elseif minetest.get_node(pos_down).name == "towers:spikes_2" then
 		towers.RemoveSpike(pos_down)
-		PopMe(self)
+		if not armoured then
+			PopMe(self)
+		end
 	elseif minetest.get_node(pos_down).name == "towers:spikes_1" then
 		towers.RemoveSpike(pos_down)
-		PopMe(self)
+		if not armoured then
+			PopMe(self)
+		end
 	else
 		return true
 	end
