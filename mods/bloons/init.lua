@@ -23,7 +23,8 @@ minetest.register_chatcommand("bloon", {
 	description = "Spawns a red bloon.",
 	func = function(name, param)
 		local player = minetest.get_player_by_name(name)
-		bloons.add_bloon(player:get_pos(), "red")
+		newpos = {x=player:get_pos().x, y=player:get_pos().y+0.5, z=player:get_pos().z}
+		bloons.add_bloon(newpos, "red")
 	end
 })
 
@@ -47,9 +48,9 @@ minetest.register_node("bloons:spawner", {
 
 minetest.register_abm({
 	nodenames = {"bloons:spawner"},
-	interval = 6,
+	interval = 1,
 	chance = 1,
 	action = function(pos, yada, yada2, dunno)
-		bloons.add_bloon(pos, "lead")
+		bloons.add_bloon(pos, "pink")
 	end
 })
